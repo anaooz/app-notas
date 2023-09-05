@@ -1,34 +1,32 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckCircle2 } from 'lucide-react-native';
-import { useEffect, useState } from "react";
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
+import icons from "../components/Icons";
+
+export const key = '@storage_nota'
 
 export default function NovaNota({ navigation }) {
     const [titulo, setTitulo] = useState('')
     const [mensagem, setMensagem] = useState('')
-
-    const key = '@storage_nota'
-
+    
     const inserirNota = async (value) => {
         try {
             const nota = {
+                id: id,
                 titulo: titulo,
                 mensagem: mensagem
             }
 
-            const stringNota = JSON.stringify(nota)
-
-            await AsyncStorage.setItem(key, stringNota)
-            console.log(value)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const obterNota = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem(key)
-            return jsonValue != null ? JSON.parse(jsonValue) : null
+            if(nota.titulo != "") {
+                const stringNota = JSON.stringify(nota)
+    
+                await AsyncStorage.setItem(key, stringNota)
+                navigation.goBack()
+                console.log(value)
+            } else{
+                Alert.alert("Título vazio", "O campo Título é obrigatório!")
+            }
         } catch (error) {
             console.error(error)
         }
@@ -47,11 +45,10 @@ export default function NovaNota({ navigation }) {
             placeholder="Mensagem"
             style={[styles.input, styles.message]}/>
             <TouchableOpacity onPress={() => inserirNota([titulo, mensagem])}>
-                <CheckCircle2 color="green" size={40}/>
+                <CheckCircle2 color={icons.color} size={icons.size}/>
             </TouchableOpacity>
         </View>
     )
-
 }
 const styles = StyleSheet.create({
     container: {

@@ -11,13 +11,18 @@ Esse é um projeto React Native. Nosso projeto realiza anotações rápidas e f�
 
 ---
 
-##Método de instalação
+## Método de instalação
 
-Clone o repositório
+### Clone o repositório
+
 ```$ git clone https://github.com/anaooz/app-notas```
 
-Acesse a pasta do projeto
+
+### Acesse a pasta do projeto
+
 ```$ cd app-notas```
 
-Instale as dependências
+
+### Instale as dependências
+
 ```$ npm install```
